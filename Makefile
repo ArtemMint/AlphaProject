@@ -1,5 +1,3 @@
-# Docker
-# Complex commands
 init: up update-db
 reboot: down up
 up: docker-build docker-up docker-prune
@@ -7,7 +5,6 @@ down: docker-down
 update-db: docker-migrations docker-migrate
 collect_static: docker-collect_static
 
-# Simple commands
 docker-build:
 	cd docker && docker-compose build
 docker-up:

@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 import sys
-from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(BASE_DIR, 'AlphaProject/apps'))  # add apps to the path
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
+AUTH_USER_MODEL = '_database.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'apps._database.apps.DatabaseConfig',
+    'apps._admin.apps.AdminConfig',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,7 @@ ROOT_URLCONF = 'AlphaProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + 'templates/'],
+        'DIRS': [BASE_DIR + '/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get(
             'POSTGRES_ENGINE',
-            'django.db.backends.postgresql'),
+            'django._database.backends.postgresql'),
         'NAME': os.environ.get('POSTGRES_DB', ''),
         'USER': os.environ.get('POSTGRES_USER', ''),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
@@ -137,8 +141,6 @@ MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CELERY SETTINGS
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
