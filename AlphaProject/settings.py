@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))  # add apps to the path
+sys.path.insert(0, os.path.join(BASE_DIR, 'AlphaProject/apps'))  # add apps to the path
 
 
 # Quick-start development settings - unsuitable for production
