@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
-from apps._database import managers
+from database import managers
 
 
 class AbstractUser(AbstractBaseUser):
@@ -68,6 +68,9 @@ class User(AbstractUser):
         default='',
         blank=True,
     )
+
+    class Meta:
+        app_label = 'database'
 
     def __str__(self):
         return self.email

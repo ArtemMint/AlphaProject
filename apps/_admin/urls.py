@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from apps._admin import views
+from _admin import views
 
 app_name = 'admin'
 urlpatterns = [
