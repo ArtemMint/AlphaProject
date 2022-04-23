@@ -12,5 +12,8 @@ urlpatterns = [
     path('about',
          views.AboutView.as_view(),
          name='about_page',),
+    path('contact',
+         views.ContactView.as_view(),
+         name='contact_page',),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

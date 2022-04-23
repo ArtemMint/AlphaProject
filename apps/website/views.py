@@ -11,6 +11,11 @@ class HomeView(generic.TemplateView):
     template_name = 'website/home.html'
 
 
+class ContactView(generic.TemplateView):
+    """Render home page"""
+    template_name = 'website/contact.html'
+
+
 class AboutView(generic.TemplateView):
     """Render home page"""
     template_name = 'website/about.html'
