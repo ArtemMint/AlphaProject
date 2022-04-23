@@ -17,7 +17,7 @@ import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
-AUTH_USER_MODEL = 'database.User'
+AUTH_USER_MODEL = '_db.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'database.apps.DatabaseConfig',
+    '_db.apps.DatabaseConfig',
     '_admin.apps.AdminConfig',
     'register.apps.RegisterConfig',
 ]
@@ -84,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get(
             'POSTGRES_ENGINE',
-            'django.database.backends.postgresql'),
+            'django._db.backends.postgresql'),
         'NAME': os.environ.get('POSTGRES_DB', ''),
         'USER': os.environ.get('POSTGRES_USER', ''),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),

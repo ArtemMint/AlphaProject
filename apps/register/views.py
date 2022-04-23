@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import views
 
-from database import models
+from _db import models
 
 
 class LoginUserView(views.LoginView):
