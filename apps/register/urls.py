@@ -12,5 +12,8 @@ urlpatterns = [
     path('sign-up/',
          views.RegisterUserView.as_view(),
          name='user_register',),
+    path('logout/',
+         views.LogoutUserView.as_view(),
+         name='user_logout',),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
