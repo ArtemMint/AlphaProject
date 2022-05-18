@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
   <a class="navbar-brand" href="#">#AlphaProject</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+          aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -19,9 +20,32 @@
         <a class="nav-link" href="{% url 'website:about_page' %}">About</a>
       </li>
     </ul>
+
     <form class="form-inline my-2 my-md-0">
-      <div>{{ request.user }}</div>
-      <input class="form-control" type="text" placeholder="Search">
+      <ul class="navbar-nav mr-auto">
+        {% if request.user.is_active %}
+        <li class="nav-item active">
+          <a class="nav-link" href="">{{ request.user }}</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'register:user_logout' %}">Logout</a>
+        </li>
+        {% if request.user.is_admin %}
+        <li class="nav-item active">
+          <a class="nav-link" href="admin/">ADMIN</a>
+        </li>
+        {% endif %}
+        {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'register:user_login' %}">Login</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'register:user_register' %}">Register</a>
+        </li>
+        {% endif %}
+      </ul>
     </form>
+
+
   </div>
 </nav>
