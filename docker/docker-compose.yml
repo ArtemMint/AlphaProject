@@ -25,6 +25,7 @@ services:
 
   nginx:
     build: ../nginx
+    container_name: django_nginx
     depends_on:
       - django
       - pgdb

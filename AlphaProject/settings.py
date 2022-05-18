@@ -11,11 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 import sys
+import environ
 
+# initialize env reader
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+
+# read .env file for env values
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 AUTH_USER_MODEL = '_db.User'
 
@@ -23,12 +29,11 @@ AUTH_USER_MODEL = '_db.User'
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-*o^3c1s4fya=4tvt%=n484Sdq.!lt55-jle*lkz)t18h8ucbcab#vl)bl')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
-
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 ALLOWED_HOSTS = ALLOWED_HOSTS.split(" ") if ALLOWED_HOSTS else ["*"]
 
 # Application definition
@@ -81,14 +86,12 @@ WSGI_APPLICATION = 'AlphaProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get(
-            'POSTGRES_ENGINE',
-            'django._db.backends.postgresql'),
-        'NAME': os.environ.get('POSTGRES_DB', ''),
-        'USER': os.environ.get('POSTGRES_USER', ''),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
-        'HOST': os.environ.get('POSTGRES_HOST', ''),
-        'PORT': os.environ.get('POSTGRES_PORT', '')
+        'ENGINE': env('POSTGRES_ENGINE'),
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT')
     }
 }
 
@@ -131,14 +134,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # CELERY SETTINGS
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_BROKER_URL = env("CELERY_BROKER")
+CELERY_RESULT_BACKEND = env("CELERY_BROKER")
