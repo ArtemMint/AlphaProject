@@ -1,63 +1,77 @@
 from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth import views
 
-from _db import models
+from register import forms
 
 
-class LoginUserView(views.LoginView):
-    """Login user in site"""
-    template_name = 'register/login.html'
-    # redirect_authenticated_user = True
+class BaseUserRegisterView(generic.View):
+    form_class: forms = ''
+    redirect_url: str = ''
+    template_name: str = ''
+    success_message: str = ''
 
     def get(self, request):
         return render(
-            self.request,
-            self.template_name
+            request,
+            self.template_name,
+            {'form': self.form_class}
         )
 
     def post(self, request):
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(
-            email=email,
-            password=password,
-        )
-        context = {}
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect(
-                    self.request.GET.get('next', 'register:user_login'),
-                )
-            else:
-                context['error_message'] = "User is not active."
-        else:
-            context['error_message'] = "Email or password not correct."
-
-        return render(
-            self.request,
-            self.template_name,
-            context,
-        )
+        pass
 
 
-class RegisterUserView(generic.View):
+class CreateUserView(BaseUserRegisterView):
     """Register new user view"""
-    model = models.User
+    form_class = forms.CreateUserForm
+    redirect_url = 'register:user_login'
     template_name = 'register/register.html'
+    success_message = "Your profile was created successfully!"
 
-    def get(self, request):
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.cleaned_data.get('email')
+            form.save()
+            return redirect(self.redirect_url)
         return render(
-            self.request,
+            request,
             self.template_name,
+            {'form': form}
         )
 
 
-class LogoutUserView(generic.View):
-    template_name = 'register:user_login'
-    """Logout current user"""
+class LoginUserView(BaseUserRegisterView):
+    """ Login user view"""
+    form_class = forms.LoginUserForm
+    redirect_url = 'website:home_page'
+    template_name = 'register/login.html'
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(
+                request,
+                username=email,
+                password=password,
+            )
+            if user is not None:
+                login(request, user)
+                return redirect(self.redirect_url)
+        return render(
+            request,
+            self.template_name,
+            {'form': form}
+        )
+
+
+class LogoutUserView(BaseUserRegisterView):
+    """Logout user view"""
+    redirect_url = 'website:home_page'
+
     def get(self, request):
         logout(request)
-        return redirect(self.template_name)
+        return redirect(self.redirect_url)

@@ -15,11 +15,11 @@ class AbstractUser(AbstractBaseUser):
         unique=True,
     )
     date_joined = models.DateField(
-        verbose_name='date joined',
+        verbose_name='date_joined',
         auto_now_add=True,
     )
     last_login = models.DateTimeField(
-        verbose_name='last login',
+        verbose_name='last_login',
         auto_now=True,
     )
     is_admin = models.BooleanField(
@@ -57,13 +57,19 @@ class User(AbstractUser):
     login users in application.
     """
     first_name = models.CharField(
-        verbose_name='first name',
+        verbose_name='first_name',
         max_length=50,
         default='',
         blank=True,
     )
     last_name = models.CharField(
-        verbose_name='last name',
+        verbose_name='last_name',
+        max_length=50,
+        default='',
+        blank=True,
+    )
+    user_name = models.CharField(
+        verbose_name='user_name',
         max_length=50,
         default='',
         blank=True,
@@ -74,4 +80,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-

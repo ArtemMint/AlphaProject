@@ -1,16 +1,31 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from _db import models
 
 
-class RegisterUserForm(forms.ModelForm):
+class CreateUserForm(UserCreationForm):
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    password2 = forms.CharField(
+        label='Confirm password',
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
 
     class Meta:
         model = models.User
         fields = (
             'email',
-            'password',
-            # 'password2',
         )
         widgets = {
             'email': forms.EmailInput(
@@ -18,14 +33,4 @@ class RegisterUserForm(forms.ModelForm):
                     'class': 'form-control',
                 }
             ),
-            'password1': forms.PasswordInput(
-                attrs={
-                    'class': 'form-control',
-                }
-            ),
-            # 'password2': forms.PasswordInput(
-            #     attrs={
-            #         'class': 'form-control',
-            #     }
-            # )
         }

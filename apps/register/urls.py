@@ -8,9 +8,12 @@ app_name = 'register'
 urlpatterns = [
     path('sign-in/',
          views.LoginUserView.as_view(),
-         name='user_login',),
+         name='user_login'),
     path('sign-up/',
-         views.RegisterUserView.as_view(),
-         name='user_register',),
+         views.CreateUserView.as_view(),
+         name='user_register'),
+    path('logout/',
+         views.LogoutUserView.as_view(),
+         name='user_logout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
