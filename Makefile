@@ -8,7 +8,7 @@ collect_static: docker-collect_static
 docker-build:
 	cd docker && docker-compose build
 docker-up:
-	cd docker && docker-compose up
+	cd docker && docker-compose up -d
 docker-down:
 	cd docker && docker-compose down
 docker-stop:
