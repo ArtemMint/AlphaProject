@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import sys
 import environ
+from distutils.util import strtobool
 
 # initialize env reader
 env = environ.Env()
@@ -32,7 +33,7 @@ AUTH_USER_MODEL = '_db.User'
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = strtobool(env('DEBUG'))
 ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 ALLOWED_HOSTS = ALLOWED_HOSTS.split(" ") if ALLOWED_HOSTS else ["*"]
 
