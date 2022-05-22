@@ -11,19 +11,18 @@
     <img class="mb-4" src="{% static 'website/img/logo.jpeg' %}" alt="logo" style="border-radius: 50%;">
   </a>
   <h1 class="h3 mb-3 fw-normal">Please Sign-In</h1>
+  {% for field in form %}
+  <div class="form-floating">
+    {{ field }}
+    {{ field.label_tag }}
+    {{ field.errors }}
+  </div>
+  {% endfor %}
 
-  <div class="form-floating">
-    <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-    <label for="floatingInput">Email address</label>
-  </div>
-  <div class="form-floating">
-    <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Password</label>
-  </div>
   <p>
-        <span style="color: red">
-            {{ error_message }}
-        </span>
+    <span style="color: red">
+        {{ error_message }}
+    </span>
   </p>
   <div class="checkbox mb-3">
     <label>

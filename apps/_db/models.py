@@ -68,12 +68,12 @@ class User(AbstractUser):
         default='',
         blank=True,
     )
-    # user_name = models.CharField(
-    #     verbose_name='user_name',
-    #     max_length=50,
-    #     default='',
-    #     blank=True,
-    # )
+    user_name = models.CharField(
+        verbose_name='user_name',
+        max_length=50,
+        default='',
+        blank=True,
+    )
 
     class Meta:
         app_label = '_db'

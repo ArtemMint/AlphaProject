@@ -8,12 +8,12 @@ app_name = 'website'
 urlpatterns = [
     path('',
          views.HomeView.as_view(),
-         name='home_page',),
+         name='home_page'),
     path('about',
          views.AboutView.as_view(),
-         name='about_page',),
+         name='about_page'),
     path('contact',
          views.ContactView.as_view(),
-         name='contact_page',),
+         name='contact_page'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
